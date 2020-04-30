@@ -3,67 +3,104 @@ import { StyleSheet, Text, View } from "react-native";
 import Header from "./components/Header";
 import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
-import GameLostScreen from "./screens/GameLostScreen";
-import GameWonScreen from "./screens/GameWonScreen";
+import GameOverScreen from "./screens/GameOverScreen";
+import GameHistoryScreen from './screens/GameHistoryScreen';
 
 export default function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameLost, setGameLost] = useState(false);
   const [gameWon, setGameWon] = useState(false);
+  const [totalGamesLost, setTotalGamesLost] = useState(0);
+  const [totalGamesWon, setTotalGamesWon] = useState(0);
   const [winCondition, setWinCondition] = useState();
+  const [roundsHistory, setRoundsHistory] = useState([]); 
+  const [showHistory, setShowHistory] = useState(false);
+  const [userRoundsWon, setUserRoundsWon] = useState(0);
+  const [computerRoundsWon, setComputerRoundsWon] = useState(0);
 
-  const start3GameHandler = () => {
-    setGameStarted(true);
-    setWinCondition(3);
-  };
-  const start5GameHandler = () => {
-    setGameStarted(true);
-    setWinCondition(5);
-  };
-  const start7GameHandler = () => {
-    setGameStarted(true);
-    setWinCondition(7);
+
+  
+
+  const roundsHistoryHandler = (roundResult) => {
+    if (roundResult === "You won the round") {
+      setUserRoundsWon(userRoundsWon + 1);
+    } else if (roundResult === "You lost the round") {
+      setComputerRoundsWon(computerRoundsWon + 1)
+    }
+    setRoundsHistory([roundResult, ...roundsHistory]);
+
+    if (userRoundsWon > (winCondition / 2) - 1) {
+      gameOverHandler('won')
+    } else if (computerRoundsWon > (winCondition / 2) - 1) {
+      gameOverHandler('lost')
+    }
   };
 
-  const gameWonHandler = () => {
-    setGameWon(true);
+
+  const toggleHistoryHandler = () => {
+    setShowHistory(!showHistory);
+  }
+
+  const startGameHandler = (winCondition) => {
+    setGameStarted(true);
+    setWinCondition(winCondition);
   };
 
-  const gameLostHandler = () => {
-    setGameLost(true);
+  const gameOverHandler = (gameResult) => {
+
+    if (gameResult == 'won') {
+      setGameWon(true);
+    setTotalGamesWon(totalGamesWon + 1)
+    } else if (gameResult == 'lost') {
+      setGameLost(true);
+      setTotalGamesLost(totalGamesLost + 1)
+    }
   };
+
 
   const newGameHandler = () => {
     setGameLost(false);
     setGameWon(false);
     setGameStarted(false);
+    setRoundsHistory([]);
+    setComputerRoundsWon(0);
+    setUserRoundsWon(0);
   };
 
+  //StartGameScreen - Init on load
   let content = (
     <StartGameScreen
-      start3GameHandler={start3GameHandler}
-      start5GameHandler={start5GameHandler}
-      start7GameHandler={start7GameHandler}
+      startGameHandler={startGameHandler}
+      totalGamesWon={totalGamesWon} totalGamesLost={totalGamesLost}
     />
   );
 
+  //Load GameScreen
   if (gameStarted && !gameWon && !gameLost) {
     content = (
       <GameScreen
         winCondition={winCondition}
-        gameWonHandler={gameWonHandler}
-        gameLostHandler={gameLostHandler}
+        gameOverHandler={gameOverHandler}
+        roundsHistoryHandler={roundsHistoryHandler}
+        userRoundsWon={userRoundsWon}
+        computerRoundsWon={computerRoundsWon}
       />
     );
+
+  //Game Over - set win or loss screen
   } else if (gameStarted && gameWon) {
-    content = <GameWonScreen />;
+    content = <GameOverScreen message="YOU WON THE GAME" newGameHandler={newGameHandler}/>;
   } else if (gameStarted && gameLost) {
-    content = <GameLostScreen />;
+    content = <GameOverScreen message="YOU LOST THE GAME" newGameHandler={newGameHandler}/>;
+  }
+
+  if (showHistory) {
+    content = <GameHistoryScreen roundsHistory={roundsHistory}/>
   }
 
   return (
     <View style={styles.screen}>
-      <Header />
+      <Header toggleHistoryHandler={toggleHistoryHandler}/>
       {content}
     </View>
   );

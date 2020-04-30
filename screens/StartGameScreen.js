@@ -1,27 +1,13 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import GamesScoreBoard from '../components/GamesScoreBoard'
+import StartGameButtons from "../components/StartGameButtons";
 
 const StartGameScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <View style={styles.buttonContainer}>
-        <Button
-          title="BEST OF 3"
-          style={styles.button}
-          onPress={props.start3GameHandler}
-          winCondition={props.winCondition}
-        />
-        <Button
-          title="BEST OF 5"
-          style={styles.button}
-          onPress={props.start5GameHandler}
-        />
-        <Button
-          title="BEST OF 7"
-          style={styles.button}
-          onPress={props.start7GameHandler}
-        />
-      </View>
+      <GamesScoreBoard totalGamesWon={props.totalGamesWon} totalGamesLost={props.totalGamesLost}/>
+      <StartGameButtons startGameHandler={props.startGameHandler}/>
     </View>
   );
 };
@@ -30,10 +16,9 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
   },
-  buttonContainer: {},
-  button: {},
+  
 });
 
 export default StartGameScreen;

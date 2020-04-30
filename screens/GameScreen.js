@@ -1,111 +1,48 @@
-import React, { useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import React from "react";
+import { View, StyleSheet } from "react-native";
+
+import Colors from "../constants/Colors";
+import RoundsScoreBoard from "../components/RoundsScoreBoard";
+import GamePlayButtons from "../components/GamePlayButtons";
 
 const GameScreen = (props) => {
-  const [computerGuess, setComputerGuess] = useState();
-  const [userGuess, setUserGuess] = useState();
-  const [userRoundsWon, setUserRoundsWon] = useState(0);
-  const [computerRoundsWon, setComputerRoundsWon] = useState(0);
-
   const winCondition = props.winCondition;
 
-  const computerGuessHandler = () => {
-    let computerGuessGenerator = Math.floor(Math.random() * 3);
+  const draw = "It's a draw";
+  const win = "You won the round";
+  const lose = "You lost the round";
 
-    switch (computerGuessGenerator) {
-      case 0:
-        setComputerGuess("rock");
-        break;
-      case 1:
-        setComputerGuess("paper");
-        break;
-      case 2:
-        setComputerGuess("scissors");
-        break;
-      default:
-        setComputerGuess("error");
-        break;
-    }
-  };
+  const playRoundHandler = (userGuess) => {
+    computerGuess = Math.floor(Math.random() * 3);
 
-  const setUserGuessRockHandler = () => {
-    setUserGuess("rock");
-    computerGuessHandler();
-    if (userGuess === computerGuess) {
-      return;
-    } else if (userGuess === "rock") {
-      if (computerGuess === "paper") {
-        setComputerRoundsWon(computerRoundsWon + 1);
-      } else {
-        setUserRoundsWon(userRoundsWon + 1);
-      }
+    //Computer Wins Round
+    if ((userGuess + 1) % 3 == computerGuess) {
+      props.roundsHistoryHandler(lose);
     }
-    if (userRoundsWon === winCondition - 1) {
-      props.gameWonHandler();
-    } else if (computerRoundsWon === winCondition - 1) {
-      props.gameLostHandler();
-    }
-  };
-
-  const setUserGuessPaperHandler = () => {
-    setUserGuess("paper");
-    computerGuessHandler();
-
-    if (userGuess === computerGuess) {
-      return;
-    } else if (userGuess === "paper") {
-      if (computerGuess === "scissors") {
-        setComputerRoundsWon(computerRoundsWon + 1);
-      } else {
-        setUserRoundsWon(userRoundsWon + 1);
-      }
-    }
-    if (userRoundsWon === winCondition - 1) {
-      props.gameWonHandler();
-    } else if (computerRoundsWon === winCondition - 1) {
-      props.gameLostHandler();
-    }
-  };
-
-  const setUserGuessScissorsHandler = () => {
-    setUserGuess("scissors");
-    computerGuessHandler();
-
-    if (userGuess === computerGuess) {
-      return;
-    } else if (userGuess === "scissors") {
-      if (computerGuess === "rock") {
-        setComputerRoundsWon(computerRoundsWon + 1);
-      } else {
-        setUserRoundsWon(userRoundsWon + 1);
-      }
-    }
-    if (userRoundsWon === winCondition - 1) {
-      props.gameWonHandler();
-    } else if (computerRoundsWon === winCondition - 1) {
-      props.gameLostHandler();
+    //User Wins Round
+    else if ((computerGuess + 1) % 3 == userGuess) {
+      props.roundsHistoryHandler(win);
+    } else {
+      props.roundsHistoryHandler(draw);
     }
   };
 
   return (
-    <View>
-      <Button title="ROCK" onPress={setUserGuessRockHandler} />
-      <Button title="PAPER" onPress={setUserGuessPaperHandler} />
-      <Button title="SCISSORS" onPress={setUserGuessScissorsHandler} />
-
-      <View>
-        <Text>User Rounds Won: {userRoundsWon}</Text>
-      </View>
-      <View>
-        <Text>Computer Rounds Won: {computerRoundsWon}</Text>
-      </View>
-      <View>
-        <Text>{winCondition}</Text>
-      </View>
+    <View style={styles.screen}>
+      <RoundsScoreBoard 
+        winCondition={winCondition}
+        userRoundsWon={props.userRoundsWon}
+        computerRoundsWon={props.computerRoundsWon}
+      />
+      <GamePlayButtons playRoundHandler={playRoundHandler} />
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
+});
 
 export default GameScreen;
