@@ -7,7 +7,7 @@ const Header = (props) => {
     <View style={styles.Header}>
       <Text style={styles.HeaderText}>R - P - S</Text>
       <View style={styles.HeaderNav}>
-      <Button title="GAME HISTORY" onPress={props.toggleHistoryHandler} />
+      <Button title="GAME HISTORY" color={"navy"} onPress={props.toggleHistoryHandler} />
       </View>
     </View>
   );

@@ -7,17 +7,19 @@ const StartGameButtons = props => {
         <Button
           title="BEST OF 3"
           style={styles.button}
+          color={"black"}
           onPress={() => props.startGameHandler(3)}
         />
         <Button
           title="BEST OF 5"
           style={styles.button}
-          
+          color={"black"}
           onPress={() => props.startGameHandler(5)}
         />
         <Button
           title="BEST OF 7"
           style={styles.button}
+          color={"black"}
           onPress={() => props.startGameHandler(7)}
         />
       </View>
@@ -26,12 +28,11 @@ const StartGameButtons = props => {
 
 const styles = StyleSheet.create({
     buttonContainer: {
+        marginTop: 200,
         flexDirection: "row",
         alignItems: 'center',
-        marginBottom: 60,
         justifyContent: "space-around",
-        width: 400,
-        maxWidth: '90%',
+        width: "100%",
       },
 })
 

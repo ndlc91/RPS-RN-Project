@@ -5,9 +5,9 @@ const GamePlayButtons = props => {
     return (
         <View style={styles.gamePlayContainer}>
         <View style={styles.buttonContainer}>
-          <Button title="ROCK" onPress={() => props.playRoundHandler(0)} />
-          <Button title="PAPER" onPress={() => props.playRoundHandler(1)} />
-          <Button title="SCISSORS" onPress={() => props.playRoundHandler(2)} />
+          <Button title="ROCK" color={"black"} onPress={() => props.playRoundHandler(0)} />
+          <Button title="PAPER" color={"black"} onPress={() => props.playRoundHandler(1)} />
+          <Button title="SCISSORS" color={"black"} onPress={() => props.playRoundHandler(2)} />
         </View>
       </View>
     )

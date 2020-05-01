@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 import Colors from "../constants/Colors";
 import RoundsScoreBoard from "../components/RoundsScoreBoard";
@@ -15,9 +15,11 @@ const GameScreen = (props) => {
   const playRoundHandler = (userGuess) => {
     computerGuess = Math.floor(Math.random() * 3);
 
+
     //Computer Wins Round
     if ((userGuess + 1) % 3 == computerGuess) {
       props.roundsHistoryHandler(lose);
+
     }
     //User Wins Round
     else if ((computerGuess + 1) % 3 == userGuess) {
@@ -34,6 +36,7 @@ const GameScreen = (props) => {
         userRoundsWon={props.userRoundsWon}
         computerRoundsWon={props.computerRoundsWon}
       />
+      <Text></Text>
       <GamePlayButtons playRoundHandler={playRoundHandler} />
     </View>
   );
