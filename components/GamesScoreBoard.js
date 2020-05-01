@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     ScoreBoardContainer: {
       paddingVertical: 40,
       marginTop: 20,
-      height: 120,
+      height: 150,
       flexDirection: "row",
       justifyContent: "space-evenly",
       alignItems: "center",
