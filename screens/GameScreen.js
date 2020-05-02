@@ -4,10 +4,12 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import Colors from "../constants/Colors";
 import RoundsScoreBoard from "../components/RoundsScoreBoard";
 import GamePlayButtons from "../components/GamePlayButtons";
+import ScoreBoardBoldText from "../components/ScoreBoardBoldText";
 
 const GameScreen = (props) => {
   const [userGuess, setUserGuess] = useState();
   const [computerGuess, setComputerGuess] = useState();
+  const [roundResult, setRoundResult] = useState();
   const winCondition = props.winCondition;
 
   const draw = "It's a draw";
@@ -28,17 +30,20 @@ const GameScreen = (props) => {
     //set the user image to be displayed
 
     //Computer Wins Round
-    if ((userGuess + 1) % 3 == computerGuess) {
+    if (((userGuess + 1) % 3) == randComputerGuess) {
       props.roundsHistoryHandler(lose);
+      setRoundResult(lose);
     }
     //User Wins Round
-    else if ((computerGuess + 1) % 3 == userGuess) {
+    else if (((randComputerGuess + 1) % 3) == userGuess) {
       props.roundsHistoryHandler(win);
+      setRoundResult(win);
     } else {
       props.roundsHistoryHandler(draw);
+      setRoundResult(draw);
     }
     
-
+    //Test for currect output
     console.log("start of round")
     console.log(userGuess)
     console.log(randComputerGuess)
@@ -105,6 +110,9 @@ const GameScreen = (props) => {
       <View style={styles.imageContainer}>
         {userImageSource}
         {computerImageSource}
+      </View>
+      <View style={{alignItems: "center"}}>
+  <ScoreBoardBoldText>{roundResult}</ScoreBoardBoldText>
       </View>
       <GamePlayButtons playRoundHandler={playRoundHandler} />
     </View>
