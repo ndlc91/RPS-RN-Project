@@ -28,7 +28,7 @@ const StartGameButtons = props => {
 
 const styles = StyleSheet.create({
     buttonContainer: {
-        marginTop: 200,
+        marginTop: 250,
         flexDirection: "row",
         alignItems: 'center',
         justifyContent: "space-around",

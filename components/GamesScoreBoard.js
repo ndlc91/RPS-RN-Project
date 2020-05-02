@@ -1,22 +1,32 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Colors from "../constants/Colors"
+import ScoreBoardContainer from "./ScoreBoardContainer";
+import ScoreBoardItem from "./ScoreBoardItem";
+import ScoreBoardText from "./ScoreBoardText";
+import ScoreBoardBoldText from "./ScoreBoardBoldText";
 
 const ScoreBoard = (props) => {
   
 
 return (
 
-    <View style={styles.ScoreBoardContainer}>
+    <ScoreBoardContainer>
+      <ScoreBoardItem>
+        <ScoreBoardBoldText>GAME HISTORY</ScoreBoardBoldText>
+      </ScoreBoardItem>
+      <ScoreBoardItem>
       <View style={styles.StackedText}>
-        <Text style={styles.ScoreBoardText}>User Games Won</Text>
-        <Text style={styles.NumberText}>{props.totalGamesWon}</Text>
-      </View>
+        <ScoreBoardText>User Games Won</ScoreBoardText>
+        <ScoreBoardBoldText>{props.totalGamesWon}</ScoreBoardBoldText>
+        </View>
       <View style={styles.StackedText}>
-        <Text style={styles.ScoreBoardText}>Computer Games Won</Text>
-        <Text style={styles.NumberText}>{props.totalGamesWon}</Text>
+        <ScoreBoardText>Computer Games Won</ScoreBoardText>
+        <ScoreBoardBoldText>{props.totalGamesWon}</ScoreBoardBoldText>
+
       </View>
-    </View>
+      </ScoreBoardItem>
+    </ScoreBoardContainer>
 );
 };
 const styles = StyleSheet.create({

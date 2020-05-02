@@ -17,14 +17,13 @@ const styles = StyleSheet.create({
     gamePlayContainer: {
     alignItems: "center",
     justifyContent: "space-around",
-    height: 400,
+    height: 100,
   },
   buttonContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    width: 400,
-    maxWidth: "90%",
+    width: "100%",
   },
 });
 export default GamePlayButtons

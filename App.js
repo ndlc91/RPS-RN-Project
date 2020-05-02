@@ -19,8 +19,6 @@ export default function App() {
   const [computerRoundsWon, setComputerRoundsWon] = useState(0);
 
 
-  
-
   const roundsHistoryHandler = (roundResult) => {
     if (roundResult === "You won the round") {
       setUserRoundsWon(userRoundsWon + 1);
@@ -86,14 +84,13 @@ export default function App() {
         computerRoundsWon={computerRoundsWon}
       />
     );
-
   //Game Over - set win or loss screen
   } else if (gameStarted && gameWon) {
     content = <GameOverScreen message="YOU WON THE GAME" newGameHandler={newGameHandler}/>;
   } else if (gameStarted && gameLost) {
     content = <GameOverScreen message="YOU LOST THE GAME" newGameHandler={newGameHandler}/>;
   }
-
+  
   if (showHistory) {
     content = <GameHistoryScreen roundsHistory={roundsHistory}/>
   }
