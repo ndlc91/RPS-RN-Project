@@ -23,7 +23,8 @@ const GameScreen = (props) => {
 
   const playRoundHandler = (userGuess) => {
     setUserGuess(userGuess);
-    setComputerGuess(Math.floor(Math.random() * 3));
+    let randComputerGuess = Math.floor(Math.random() * 3);
+    setComputerGuess(randComputerGuess);
     //set the user image to be displayed
 
     //Computer Wins Round
@@ -36,6 +37,12 @@ const GameScreen = (props) => {
     } else {
       props.roundsHistoryHandler(draw);
     }
+    
+
+    console.log("start of round")
+    console.log(userGuess)
+    console.log(randComputerGuess)
+    console.log("end of round")
   };
 
   switch (userGuess) {
@@ -96,8 +103,8 @@ const GameScreen = (props) => {
         computerRoundsWon={props.computerRoundsWon}
       />
       <View style={styles.imageContainer}>
-        {computerImageSource}
         {userImageSource}
+        {computerImageSource}
       </View>
       <GamePlayButtons playRoundHandler={playRoundHandler} />
     </View>
