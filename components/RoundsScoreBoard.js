@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import Colors from "../constants/Colors"
+import Colors from "../constants/Colors";
 import ScoreBoardContainer from "./ScoreBoardContainer";
 import ScoreBoardText from "./ScoreBoardText";
 import ScoreBoardBoldText from "./ScoreBoardBoldText";
 import ScoreBoardItem from "./ScoreBoardItem";
 
-const RoundsScoreBoard = props => {
+const RoundsScoreBoard = (props) => {
   return (
     <ScoreBoardContainer>
       <ScoreBoardItem>
@@ -26,9 +26,9 @@ const RoundsScoreBoard = props => {
   );
 };
 const styles = StyleSheet.create({
-      StackedText: {
-        alignItems: "center",
-      },
-})
+  StackedText: {
+    alignItems: "center",
+  },
+});
 
 export default RoundsScoreBoard;

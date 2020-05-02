@@ -6,7 +6,11 @@ const Header = (props) => {
   return (
     <View style={styles.Header}>
       <Text style={styles.HeaderText}>R - P - S</Text>
-      <Button title="ROUND HISTORY" color={"#ff7e7e"} onPress={props.toggleHistoryHandler} />
+      <Button
+        title="ROUND HISTORY"
+        color={"#ff7e7e"}
+        onPress={props.toggleHistoryHandler}
+      />
     </View>
   );
 };
@@ -27,7 +31,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.08,
     elevation: 8,
-  }, 
+  },
   HeaderText: {
     textAlign: "center",
 

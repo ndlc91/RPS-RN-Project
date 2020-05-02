@@ -1,18 +1,16 @@
-import React from 'react'
-import { Text, StyleSheet } from 'react-native'
+import React from "react";
+import { Text, StyleSheet } from "react-native";
 
-const ScoreBoardBoldText = props => {
-    return (
-    <Text style={styles.BoldText}>{props.children}</Text> 
-    )
-}
+const ScoreBoardBoldText = (props) => {
+  return <Text style={styles.BoldText}>{props.children}</Text>;
+};
 
 const styles = StyleSheet.create({
-    BoldText: {
-        fontWeight: "bold",
-        fontSize: 20,
-        alignItems: "center",
-      }    
-})
+  BoldText: {
+    fontWeight: "bold",
+    fontSize: 20,
+    alignItems: "center",
+  },
+});
 
-export default ScoreBoardBoldText
+export default ScoreBoardBoldText;

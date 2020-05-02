@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
 import GameOverScreen from "./screens/GameOverScreen";
-import GameHistoryScreen from './screens/GameHistoryScreen';
+import GameHistoryScreen from "./screens/GameHistoryScreen";
 
 export default function App() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -13,31 +13,29 @@ export default function App() {
   const [totalGamesLost, setTotalGamesLost] = useState(0);
   const [totalGamesWon, setTotalGamesWon] = useState(0);
   const [winCondition, setWinCondition] = useState();
-  const [roundsHistory, setRoundsHistory] = useState([]); 
+  const [roundsHistory, setRoundsHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
   const [userRoundsWon, setUserRoundsWon] = useState(0);
   const [computerRoundsWon, setComputerRoundsWon] = useState(0);
-
 
   const roundsHistoryHandler = (roundResult) => {
     if (roundResult === "You won the round") {
       setUserRoundsWon(userRoundsWon + 1);
     } else if (roundResult === "You lost the round") {
-      setComputerRoundsWon(computerRoundsWon + 1)
+      setComputerRoundsWon(computerRoundsWon + 1);
     }
     setRoundsHistory([roundResult, ...roundsHistory]);
 
-    if (userRoundsWon > (winCondition / 2) - 1) {
-      gameOverHandler('won')
-    } else if (computerRoundsWon > (winCondition / 2) - 1) {
-      gameOverHandler('lost')
+    if (userRoundsWon > winCondition / 2 - 1) {
+      gameOverHandler("won");
+    } else if (computerRoundsWon > winCondition / 2 - 1) {
+      gameOverHandler("lost");
     }
   };
 
-
   const toggleHistoryHandler = () => {
     setShowHistory(!showHistory);
-  }
+  };
 
   const startGameHandler = (winCondition) => {
     setGameStarted(true);
@@ -45,16 +43,14 @@ export default function App() {
   };
 
   const gameOverHandler = (gameResult) => {
-
-    if (gameResult == 'won') {
+    if (gameResult == "won") {
       setGameWon(true);
-    setTotalGamesWon(totalGamesWon + 1)
-    } else if (gameResult == 'lost') {
+      setTotalGamesWon(totalGamesWon + 1);
+    } else if (gameResult == "lost") {
       setGameLost(true);
-      setTotalGamesLost(totalGamesLost + 1)
+      setTotalGamesLost(totalGamesLost + 1);
     }
   };
-
 
   const newGameHandler = () => {
     setGameLost(false);
@@ -69,7 +65,8 @@ export default function App() {
   let content = (
     <StartGameScreen
       startGameHandler={startGameHandler}
-      totalGamesWon={totalGamesWon} totalGamesLost={totalGamesLost}
+      totalGamesWon={totalGamesWon}
+      totalGamesLost={totalGamesLost}
     />
   );
 
@@ -84,20 +81,30 @@ export default function App() {
         computerRoundsWon={computerRoundsWon}
       />
     );
-  //Game Over - set win or loss screen
+    //Game Over - set win or loss screen
   } else if (gameStarted && gameWon) {
-    content = <GameOverScreen message="YOU WON THE GAME" newGameHandler={newGameHandler}/>;
+    content = (
+      <GameOverScreen
+        message="YOU WON THE GAME"
+        newGameHandler={newGameHandler}
+      />
+    );
   } else if (gameStarted && gameLost) {
-    content = <GameOverScreen message="YOU LOST THE GAME" newGameHandler={newGameHandler}/>;
+    content = (
+      <GameOverScreen
+        message="YOU LOST THE GAME"
+        newGameHandler={newGameHandler}
+      />
+    );
   }
-  
+
   if (showHistory) {
-    content = <GameHistoryScreen roundsHistory={roundsHistory}/>
+    content = <GameHistoryScreen roundsHistory={roundsHistory} />;
   }
 
   return (
     <View style={styles.screen}>
-      <Header toggleHistoryHandler={toggleHistoryHandler}/>
+      <Header toggleHistoryHandler={toggleHistoryHandler} />
       {content}
     </View>
   );
@@ -106,6 +113,6 @@ export default function App() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#ffffff"
+    backgroundColor: "#ffffff",
   },
 });
